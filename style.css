@@ -383,27 +383,95 @@ canvas {
     display: flex;
     height: 100vh;
     width: 100vw;
-    background: #ffcd6d;
+   
 }
-.left-page6{
+.flip{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
-    width: 50%;
+    height: 600px;
+    width: 580px;
     padding-left: 20vw;
+    box-shadow: 0 0 10px rgba(128, 128, 128, 0.5);
+    padding: 1em;
+    margin-top: 180px;
+    transform-style: preserve-3d;
+    transition: 3s ease;
+    margin-left: 350px;
 }
-.left-page6>h1{
-    font-size: 2.8vw;
-    font-weight: 600;
-}
-.left-page6>h4{
-    margin-top: 20px;
-    font-size: 20px;
-    font-weight: 500;
-    width: 50%;
-}
+
+  
+  .flip:hover {
+    transform: rotateY(180deg);
+  }
+  /* Content */
+  .flip .content {
+    transform-style: preserve-3d;
+  }
+  
+  .flip .back, .flip .front {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .flip .back {
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .flip h1,
+  .flip p {
+    transform: translateZ(90px);
+    text-shadow: 0 0 3px black;
+    text-align: center;
+    
+  }
+  
+  .flip h1 {
+    font-size: 3em;
+    color: #fff;
+    letter-spacing: 1px;
+    font-size: 100px;
+    text-decoration: underline;
+    color: #ffffff;
+  }
+  
+  .flip p {
+    font-size: 1em;
+    color: #ffffff;
+    line-height: 1.6em;
+  }
+  
+  .flip::before,
+  .flip::after {
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background-image: linear-gradient(rgb(255, 90, 128), rgb(255, 242, 0));
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: rotateY(180deg)translateZ(1px);
+  }
+  
+  .flip::before {
+    transform: none;
+    background-image: linear-gradient(rgb(47, 244, 211), rgb(255, 166,12 ));
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
 .right-page6{
     position: relative;
     height: 100%;
@@ -414,8 +482,93 @@ canvas {
     left: 40%;
     top: 50%;
     transform: translate(-50%,-50%);
-    height: 70%;
-    width: 70%;
+    height: 100%;
+    width: 79%;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.container .square {
+  position: absolute;
+  width: 2000px;
+  height: 200px;
+}
+
+.container .square:nth-child(2) {
+  transform: translate(-25%, -25%) rotateX(180deg);
+  filter: hue-rotate(90deg);
+}
+
+.container .square:nth-child(3) {
+  transform: translate(25%, 25%) rotate(180deg);
+  filter: hue-rotate(180deg);
+}
+
+.container .square::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #0f0;
+  box-shadow: 0 0 0 8px #0f03, 0 0 0 15px #0f01;
+  animation: animateSquare 4s linear infinite;
+}
+
+@keyframes animateSquare {
+  0% {
+    transform: translate(2px,2px);
+  }
+
+  25% {
+    transform: translate(178px,2px);
+  }
+
+  50% {
+    transform: translate(178px,178px);
+  }
+
+  75% {
+    transform: translate(2px,178px);
+  }
+
+  100% {
+    transform: translate(2px,2px);
+  }
+}
+
+.container .square span {
+  position: absolute;
+  inset: 10px;
+  overflow: hidden;
+  transform: rotate(calc(90deg * var(--i)));
+}
+
+.container .square span::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: #0f0;
+  transform: translateX(-100%);
+  animation: animate 10s linear infinite;
+  animation-delay: calc(1s * var(--i));
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50%,100% {
+    transform: translateX(100%);
+  }
 }
 #page7{
     position: relative;
